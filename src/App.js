@@ -3,7 +3,20 @@ import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import logo from './logo/brand logo/logo.png';
 import HomePage from './Components/HomePage';
+import ProductPage from "./Components/ProductPage";
 function App() {
+  const [productsAddedToCart, setProducts] = useState(productsData);
+  const [addedItems, setAddedItems] = useState([]); // Track added items
+  const [numOfItems, setNumOfItems] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
+
+  const handleAddToCart = (product) => {
+    const price = parseFloat(product.price);
+    setAddedItems([...addedItems, product]); // Add item to addedItems array
+    setNumOfItems(numOfItems + 1);
+    setSubTotal(subTotal + price);
+  };
+  
   return (
     <BrowserRouter>
       <div className="App">
@@ -30,7 +43,7 @@ function App() {
             element={
 
               <div>
-          
+                <Product products={products} onAddToCart={handleAddToCart} />
               </div>
             }
           />
