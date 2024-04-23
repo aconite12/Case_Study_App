@@ -23,7 +23,17 @@ const ViewCart = ({ addedItems, handleDelete, handleClearCart}) => {
           </div>
         ))
       )}
- 
+       <div>
+       <nav>
+          <ul>
+          {/* <Link to="/ViewCart"> <ButtonComponent buttonName={"View Cart"}></ButtonComponent></Link> */}
+        <Link to={'/ProductPage'}><ButtonComponent className='btn btn-primary' buttonName={"Check Out"} onClickFunction={handleClearCart}/></Link>
+         <br/>
+          <Link to="/ProductPage"> <ButtonComponent className='btn btn-primary' buttonName={"Product Page"}></ButtonComponent></Link>
+          </ul>
+        </nav>
+
+      </div>
     </div>
     
   );
