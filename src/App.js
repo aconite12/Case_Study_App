@@ -20,7 +20,7 @@ function App() {
           exact path="/" 
           element={
           <div>
-            {/* for homepage /}
+         
           </div>
           } />
           <Route
@@ -29,7 +29,7 @@ function App() {
             element={
 
               <div>
-                {/ for product page /}
+          
               </div>
             }
           />
@@ -37,14 +37,29 @@ function App() {
             path="/ViewCart" // Corrected path to match ViewCart component
             element={
               <div>
-              {/ for viewing cart */}
+          
               </div>
           } 
           />
         </Routes>
       </div>
     </BrowserRouter>
-  );
+
+);
 }
+const productsData = [];
+
+const products = [
+  { name: 'Biogesic', price: '3', description: 'Kapitbahay' },
+  { name: 'Diatabs', price: '8', description: 'Ignacio' },
+  { name: 'Tiki tiki', price: '2', description: 'Galang' },
+  { name: 'Celine', price: '12', description: 'Lagmay' },
+  { name: 'Bioflu', price: '33', description: 'Larracas' },
+  { name: 'Alaxan', price: '3', description: 'Ferrer' },
+  { name: 'Solmux', price: '12', description: '123123' },
+  { name: 'Robitussin', price: '13', description: 'qwerqwer' },
+  { name: 'Advil', price: '12', description: 'Alcen' },
+  { name: 'Aspirin', price: '20', description: 'Kapitbahay' }
+];
 
 export default App;
