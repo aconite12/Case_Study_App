@@ -3,7 +3,8 @@ import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import logo from './logo/brand logo/logo.png';
 import HomePage from './Components/HomePage';
-import ProductPage from "./Components/ProductPage";
+import Product from "./Components/ProductPage";
+import MyCart from './Components/MyCart';
 function App() {
   const [productsAddedToCart, setProducts] = useState(productsData);
   const [addedItems, setAddedItems] = useState([]); // Track added items
@@ -51,7 +52,8 @@ function App() {
             path="/ViewCart" // Corrected path to match ViewCart component
             element={
               <div>
-          
+                <MyCart numOfItems={numOfItems} subTotal={subTotal}/>
+                <ViewCart/>
               </div>
           } 
           />
