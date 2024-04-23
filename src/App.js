@@ -18,6 +18,14 @@ function App() {
     setSubTotal(subTotal + price);
   };
   
+  const handleDelete = (index) => {
+    const updatedItems = [...addedItems];
+    updatedItems.splice(index, 1);
+    setAddedItems(updatedItems);
+    setNumOfItems(numOfItems - 1);
+    setSubTotal(subTotal - parseFloat(addedItems[index].price));
+  };
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -53,7 +61,7 @@ function App() {
             element={
               <div>
                 <MyCart numOfItems={numOfItems} subTotal={subTotal}/>
-                <ViewCart/>
+                <ViewCart addedItems={addedItems} handleDelete={handleDelete}/>
               </div>
           } 
           />
