@@ -1,9 +1,5 @@
 import React from 'react';
 
-import ButtonComponent from './ButtonComponent';
-import {Link} from 'react-router-dom';
-import ViewCart from './ViewCart';
-import { Button } from 'bootstrap';
 const MyCart = ({numOfItems, subTotal}) => {
     
     return (

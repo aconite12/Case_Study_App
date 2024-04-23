@@ -2,7 +2,6 @@ import React from 'react';
 import ProductInformation from './ProductInformation';
 import ButtonComponent from './ButtonComponent';
 import {Link} from 'react-router-dom';
-import { Button } from 'bootstrap';
 
 const ViewCart = ({ addedItems, handleDelete, handleClearCart}) => {
   return (
