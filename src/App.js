@@ -1,24 +1,49 @@
-import logo from './logo.svg';
 import './App.css';
-
+import React from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import logo from './logo/brand logo/logo.png';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <BrowserRouter>
+      <div className="App">
+      <header>
+        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+          <div className="container-fluid">
+            <a className="navbar-brand" href='/'>
+              <img src={logo} alt="Brand Logo" width="40" height="40" className="d-inline-block align-top" /> SwiftBuy
+            </a>
+          </div>
+        </nav>
       </header>
-    </div>
+        <Routes>
+          <Route 
+          exact path="/" 
+          element={
+          <div>
+            {/* for homepage /}
+          </div>
+          } />
+          <Route
+
+            path="/ProductPage"
+            element={
+
+              <div>
+                {/ for product page /}
+              </div>
+            }
+          />
+          <Route
+            path="/ViewCart" // Corrected path to match ViewCart component
+            element={
+              <div>
+              {/ for viewing cart */}
+              </div>
+          } 
+          />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
