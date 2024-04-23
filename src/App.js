@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import logo from './logo/brand logo/logo.png';
+import HomePage from './Components/HomePage';
 function App() {
   return (
     <BrowserRouter>
@@ -20,7 +21,7 @@ function App() {
           exact path="/" 
           element={
           <div>
-         
+            <HomePage/>
           </div>
           } />
           <Route
