@@ -5,16 +5,20 @@ import HomePage from './Components/HomePage';
 import Product from "./Components/ProductPage";
 import MyCart from './Components/MyCart';
 import ViewCart from './Components/ViewCart';
+import ShippingDetails from './Components/ShippingDetails';
+import OrderReview from './Components/OrderReview';
+import ConfirmationPage from './Components/ConfirmationPage';
 import './App.css';
+
 function App() {
   const [productsAddedToCart, setProducts] = useState(productsData);
-  const [addedItems, setAddedItems] = useState([]); // Track added items
+  const [addedItems, setAddedItems] = useState([]); 
   const [numOfItems, setNumOfItems] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
 
   const handleAddToCart = (product) => {
     const price = parseFloat(product.price);
-    setAddedItems([...addedItems, product]); // Add item to addedItems array
+    setAddedItems([...addedItems, product]);
     setNumOfItems(numOfItems + 1);
     setSubTotal(subTotal + price);
   };
@@ -37,15 +41,15 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-      <header>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
-          <div className="container-fluid">
-            <a className="navbar-brand" href='/'>
-              <img src={logo} alt="Brand Logo" width="40" height="40" className="d-inline-block align-top" /> SwiftBuy
-            </a>
-          </div>
-        </nav>
-      </header>
+        <header>
+          <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <div className="container-fluid">
+              <a className="navbar-brand" href='/'>
+                <img src={logo} alt="Brand Logo" width="40" height="40" className="d-inline-block align-top" /> SwiftBuy
+              </a>
+            </div>
+          </nav>
+        </header>
         <Routes>
           <Route 
           exact path="/" 
@@ -73,6 +77,9 @@ function App() {
               </div>
           } 
           />
+          <Route path="/ShippingDetails" element={<ShippingDetails onNext={handleShippingDetailsSubmit}/>} />
+          <Route path="/OrderReview" element={<OrderReview {...generateProps()}/>} />
+          <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
         </Routes>
       </div>
     </BrowserRouter>
