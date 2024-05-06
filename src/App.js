@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import logo from './logo/brand logo/logo.png';
 import HomePage from './Components/HomePage';
@@ -11,7 +11,29 @@ import ConfirmationPage from './Components/ConfirmationPage';
 import './App.css';
 
 function App() {
-  const [productsAddedToCart, setProducts] = useState(productsData);
+  const [products, setProducts] = useState([]);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/products/');
+      if (!response.ok) {
+        throw new Error('Failed to fetch products');
+      }
+      const data = await response.json();
+      if (data.status === 200) {
+        setProducts(data.data);
+      } else {
+        throw new Error('Failed to fetch products');
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  }   
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   const [addedItems, setAddedItems] = useState([]); 
   const [numOfItems, setNumOfItems] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
@@ -77,28 +99,14 @@ function App() {
               </div>
           } 
           />
-          <Route path="/ShippingDetails" element={<ShippingDetails onNext={handleShippingDetailsSubmit}/>} />
-          <Route path="/OrderReview" element={<OrderReview {...generateProps()}/>} />
+          {/* <Route path="/ShippingDetails" element={<ShippingDetails onNext={handleShippingDetailsSubmit}/>} />
+          <Route path="/OrderReview" element={<OrderReview {...generateProps()}/>} /> */}
           <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
         </Routes>
       </div>
     </BrowserRouter>
 
-);
+  );
 }
-const productsData = [];
-
-const products = [
-  { name: 'Biogesic', price: '3', description: 'Kapitbahay' },
-  { name: 'Diatabs', price: '8', description: 'Ignacio' },
-  { name: 'Tiki tiki', price: '2', description: 'Galang' },
-  { name: 'Celine', price: '12', description: 'Lagmay' },
-  { name: 'Bioflu', price: '33', description: 'Larracas' },
-  { name: 'Alaxan', price: '3', description: 'Ferrer' },
-  { name: 'Solmux', price: '12', description: '123123' },
-  { name: 'Robitussin', price: '13', description: 'qwerqwer' },
-  { name: 'Advil', price: '12', description: 'Alcen' },
-  { name: 'Aspirin', price: '20', description: 'Kapitbahay' }
-];
 
 export default App;
