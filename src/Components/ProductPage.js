@@ -7,9 +7,9 @@ const Product = ({ products, onAddToCart }) => {
   return (
     <div className='Product'>
       <div className="grid-container">
-        {products.map((product, index) => (
-          <div className="container">
-            <div key={index} className="card">
+        {products.map((product) => (
+          <div key={product.id} className="container">
+            <div className="card">
               <div className="card-body">
                 <ProductInformation {...product} />
                 <ButtonComponent
@@ -19,13 +19,11 @@ const Product = ({ products, onAddToCart }) => {
                 />
               </div>
             </div>
-
           </div>
         ))}
       </div>
       <br/><br/>
       <div>
-        
         <nav>
           <ul>
           <Link to="/ViewCart"> <ButtonComponent className='btn btn-primary' buttonName={"View Cart"}></ButtonComponent></Link>
