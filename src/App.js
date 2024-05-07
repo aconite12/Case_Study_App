@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import logo from './logo/brand logo/logo.png';
 import HomePage from './Components/HomePage';
 import Product from "./Components/ProductPage";
@@ -12,6 +12,9 @@ import './App.css';
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [addedItems, setAddedItems] = useState([]);
+  const [numOfItems, setNumOfItems] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
 
   const fetchProducts = async () => {
     try {
@@ -25,36 +28,56 @@ function App() {
     } catch (error) {
       console.error('Error fetching products:', error);
     }
-  }   
+  };
+
+  const fetchCartItems = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/cart');
+      const data = await response.json();
+      if (response.status === 200) {
+        setAddedItems(data.cartItems);
+        const totalItems = data.cartItems.length;
+        const totalPrice = data.cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
+        setNumOfItems(totalItems);
+        setSubTotal(totalPrice);
+      } else {
+        throw new Error('Failed to fetch cart items');
+      }
+    } catch (error) {
+      console.error('Error fetching cart items:', error);
+    }
+  };
 
   useEffect(() => {
     fetchProducts();
+    fetchCartItems();
   }, []);
 
-  const [addedItems, setAddedItems] = useState([]); 
-  const [numOfItems, setNumOfItems] = useState(0);
-  const [subTotal, setSubTotal] = useState(0);
-
-  const handleAddToCart = (product) => {
-    const price = parseFloat(product.price);
-    setAddedItems([...addedItems, product]);
-    setNumOfItems(numOfItems + 1);
-    setSubTotal(subTotal + price);
-  };
-  
-  const handleDelete = (index) => {
-    const updatedItems = [...addedItems];
-    updatedItems.splice(index, 1);
-    setAddedItems(updatedItems);
-    setNumOfItems(numOfItems - 1);
-    setSubTotal(subTotal - parseFloat(addedItems[index].price));
+  const handleDelete = async (productId) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/cart/${productId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete item from cart');
+      }
+      // Update local state to reflect the deleted item
+      const updatedItems = addedItems.filter(item => item.id !== productId);
+      setAddedItems(updatedItems);
+      // Recalculate total items and subtotal
+      const totalItems = updatedItems.length;
+      const totalPrice = updatedItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
+      setNumOfItems(totalItems);
+      setSubTotal(totalPrice);
+    } catch (error) {
+      console.error('Error deleting item from cart:', error);
+    }
   };
 
   const handleClearCart = () => {
-    setAddedItems([]); 
-    setNumOfItems(0); 
-    setSubTotal(0); 
-   
+    setAddedItems([]);
+    setNumOfItems(0);
+    setSubTotal(0);
   };
 
   return (
@@ -71,19 +94,18 @@ function App() {
         </header>
         <Routes>
           <Route 
-          exact path="/" 
-          element={
-          <div>
-            <HomePage/>
-          </div>
-          } />
+            exact path="/" 
+            element={
+              <div>
+                <HomePage />
+              </div>
+            } 
+          />
           <Route
-
             path="/ProductPage"
             element={
-
               <div>
-                <Product products={products} onAddToCart={handleAddToCart} />
+                <Product products={products} onAddToCart={fetchCartItems} />
               </div>
             }
           />
@@ -91,10 +113,10 @@ function App() {
             path="/ViewCart" 
             element={
               <div>
-                <MyCart numOfItems={numOfItems} subTotal={subTotal}/>
-                <ViewCart onAddToCart={addedItems} handleDelete={handleDelete} handleClearCart={handleClearCart}/>
+                <MyCart numOfItems={numOfItems} subTotal={subTotal} />
+                <ViewCart addedItems={addedItems} handleDelete={handleDelete} handleClearCart={handleClearCart} />
               </div>
-          } 
+            } 
           />
           {/* <Route path="/ShippingDetails" element={<ShippingDetails onNext={handleShippingDetailsSubmit}/>} />
           <Route path="/OrderReview" element={<OrderReview {...generateProps()}/>} /> */}
@@ -102,7 +124,6 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
-
   );
 }
 
