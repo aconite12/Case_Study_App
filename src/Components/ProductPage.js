@@ -27,7 +27,7 @@ const Product = ({ products, onAddToCart }) => {
       console.log('Product added to cart:', data);
   
       setAddedItems(prevItems => [...prevItems, product]);
-  
+      onAddToCart();
     } catch (error) {
       console.error('Error adding product to cart:', error);
     }
@@ -56,7 +56,6 @@ const Product = ({ products, onAddToCart }) => {
         <nav>
           <ul>
           <Link to="/ViewCart"> <ButtonComponent className='btn btn-primary' buttonName={"View Cart"}></ButtonComponent></Link>
-         
           </ul>
         </nav>
       </div>
