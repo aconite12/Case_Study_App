@@ -16,9 +16,6 @@ function App() {
   const fetchProducts = async () => {
     try {
       const response = await fetch('http://127.0.0.1:8000/api/products/');
-      if (!response.ok) {
-        throw new Error('Failed to fetch products');
-      }
       const data = await response.json();
       if (data.status === 200) {
         setProducts(data.data);
@@ -95,7 +92,7 @@ function App() {
             element={
               <div>
                 <MyCart numOfItems={numOfItems} subTotal={subTotal}/>
-                <ViewCart addedItems={addedItems} handleDelete={handleDelete} handleClearCart={handleClearCart}/>
+                <ViewCart onAddToCart={addedItems} handleDelete={handleDelete} handleClearCart={handleClearCart}/>
               </div>
           } 
           />
