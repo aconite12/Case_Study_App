@@ -81,3 +81,62 @@ function App() {
     setNumOfItems(0);
     setSubTotal(0);
   };
+
+  const handleClearCart = () => {
+    setCartItems([]);
+    setNumOfItems(0);
+    setSubTotal(0);
+  };
+
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <header>
+          <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <div className="container-fluid">
+              <a className="navbar-brand" href='/'>
+                <img src={logo} alt="Brand Logo" width="40" height="40" className="d-inline-block align-top" /> SwiftBuy
+              </a>
+            </div>
+          </nav>
+        </header>
+        <Routes>
+          <Route 
+            exact path="/" 
+            element={
+              <div>
+                <HomePage />
+              </div>
+            } 
+          />
+          <Route
+            path="/ProductPage"
+            element={
+              <div>
+                <Product products={products} onAddToCart={fetchCartItems} />
+              </div>
+            }
+          />
+          <Route
+            path="/ViewCart" 
+            element={
+              <div>
+                <MyCart numOfItems={numOfItems} subTotal={subTotal} />
+                {cartItems ? 
+                  <ViewCart cartItems={cartItems} handleDelete={handleDelete} handleClearCart={handleClearCart} />
+                  : 
+                  <p>Loading cart items...</p>
+                }
+              </div>
+            } 
+          />
+          {/* <Route path="/ShippingDetails" element={<ShippingDetails onNext={handleShippingDetailsSubmit}/>} />
+          <Route path="/OrderReview" element={<OrderReview {...generateProps()}/>} /> */}
+          <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
+}
+
+export default App;
