@@ -3,6 +3,10 @@
   text-align: center;
 }
 
+.Product ul {
+  list-style-type: none;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* 5 columns */
