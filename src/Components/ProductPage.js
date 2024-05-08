@@ -32,3 +32,35 @@ const Product = ({ products, onAddToCart }) => {
       console.error('Error adding product to cart:', error);
     }
   }; 
+  
+  return (
+    <div className='Product'>
+      <div className="grid-container">
+        {products.map((product) => (
+          <div key={product.id} className="container">
+            <div className="card">
+              <div className="card-body">
+                <ProductInformation {...product} />
+                <ButtonComponent
+                  className='btn btn-primary'
+                  buttonName='Add To Cart'
+                  onClickFunction={() => handleAddToCart(product)}
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <br/><br/>
+      <div>
+        <nav>
+          <ul>
+          <Link to="/ViewCart"> <ButtonComponent className='btn btn-primary' buttonName={"View Cart"}></ButtonComponent></Link>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  );
+};
+
+export default Product;
