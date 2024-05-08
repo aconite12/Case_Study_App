@@ -52,3 +52,32 @@ function App() {
     fetchProducts();
     fetchCartItems();
   }, []);
+
+  const handleDelete = async (itemId) => {
+    try {
+      console.log('Deleting item with ID:', itemId);
+  
+      const response = await fetch(`http://127.0.0.1:8000/api/cart/${itemId}`, {
+        method: 'DELETE',
+      });
+  
+      console.log('Delete response:', response);
+  
+      if (!response.ok) {
+        throw new Error('Failed to delete item from cart');
+      }
+  
+      const updatedItems = cartItems.filter(item => item.id !== itemId);
+      setCartItems(updatedItems);
+  
+      fetchCartItems();
+    } catch (error) {
+      console.error('Error deleting item from cart:', error);
+    }
+  };
+
+  const handleClearCart = () => {
+    setCartItems([]);
+    setNumOfItems(0);
+    setSubTotal(0);
+  };
