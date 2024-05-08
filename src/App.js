@@ -29,3 +29,26 @@ function App() {
       console.error('Error fetching products:', error);
     }
   };
+
+  const fetchCartItems = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/cart');
+      const data = await response.json();
+      if (response.status === 200) {
+        setCartItems(data.cartItems);
+        const totalItems = data.cartItems.length;
+        const totalPrice = data.cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
+        setNumOfItems(totalItems);
+        setSubTotal(totalPrice);
+      } else {
+        throw new Error('Failed to fetch cart items');
+      }
+    } catch (error) {
+      console.error('Error fetching cart items:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+    fetchCartItems();
+  }, []);
