@@ -21,3 +21,25 @@ const ViewCart = ({ cartItems, handleDelete, handleClearCart }) => {
                   <th>Actions</th>
                 </tr>
               </thead>
+              <tbody>
+                {cartItems.map(item => (
+                  <tr key={item.id}>
+                    <td>{item.productName}</td>
+                    <td>{item.price}</td>
+                    <td>
+                      <ButtonComponent className='btn btn-primary btn-danger' buttonName={"Delete Item"} onClickFunction={() => handleDelete(item.id)} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <ButtonComponent className='btn btn-primary' buttonName={"Check Out"} onClickFunction={handleClearCart} />
+            <Link to="/ProductPage"><ButtonComponent className='btn btn-primary' buttonName={"Product Page"}></ButtonComponent></Link>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ViewCart;
