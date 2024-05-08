@@ -11,6 +11,7 @@ class CartController extends Controller{
 
     public function addToCart(Request $request){
         $productCart = new Cart();
+        $productCart->product_id = $request->product_id;
         $productCart->productName = $request->productName;
         $productCart->price = $request->price;
         $productCart->productDescription = $request->productDescription;
@@ -68,15 +69,16 @@ class CartController extends Controller{
     }
 
     public function removeFromCart($productId){
-        $cartItems = Cart::all();
 
-        foreach ($cartItems as $key => $item) {
-            if ($item->id == $productId) {
-                $item->delete();
-                break;
-            }
+        $cartItem = Cart::find($productId);
+    
+        if (!$cartItem) {
+            return response()->json(['message' => 'Cart item not found'], 404);
         }
-
+    
+        $cartItem->delete();
+    
         return response()->json(['message' => 'Cart item removed']);
     }
+    
 }
