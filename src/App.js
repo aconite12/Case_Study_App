@@ -12,7 +12,7 @@ import './App.css';
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [addedItems, setAddedItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [numOfItems, setNumOfItems] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
 
@@ -35,7 +35,7 @@ function App() {
       const response = await fetch('http://127.0.0.1:8000/api/cart');
       const data = await response.json();
       if (response.status === 200) {
-        setAddedItems(data.cartItems);
+        setCartItems(data.cartItems);
         const totalItems = data.cartItems.length;
         const totalPrice = data.cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
         setNumOfItems(totalItems);
@@ -53,29 +53,31 @@ function App() {
     fetchCartItems();
   }, []);
 
-  const handleDelete = async (productId) => {
+  const handleDelete = async (itemId) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/cart/${productId}`, {
+      console.log('Deleting item with ID:', itemId);
+  
+      const response = await fetch(`http://127.0.0.1:8000/api/cart/${itemId}`, {
         method: 'DELETE',
       });
+  
+      console.log('Delete response:', response);
+  
       if (!response.ok) {
         throw new Error('Failed to delete item from cart');
       }
-      // Update local state to reflect the deleted item
-      const updatedItems = addedItems.filter(item => item.id !== productId);
-      setAddedItems(updatedItems);
-      // Recalculate total items and subtotal
-      const totalItems = updatedItems.length;
-      const totalPrice = updatedItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
-      setNumOfItems(totalItems);
-      setSubTotal(totalPrice);
+  
+      const updatedItems = cartItems.filter(item => item.id !== itemId);
+      setCartItems(updatedItems);
+  
+      fetchCartItems();
     } catch (error) {
       console.error('Error deleting item from cart:', error);
     }
   };
 
   const handleClearCart = () => {
-    setAddedItems([]);
+    setCartItems([]);
     setNumOfItems(0);
     setSubTotal(0);
   };
@@ -114,7 +116,11 @@ function App() {
             element={
               <div>
                 <MyCart numOfItems={numOfItems} subTotal={subTotal} />
-                <ViewCart addedItems={addedItems} handleDelete={handleDelete} handleClearCart={handleClearCart} />
+                {cartItems ? 
+                  <ViewCart cartItems={cartItems} handleDelete={handleDelete} handleClearCart={handleClearCart} />
+                  : 
+                  <p>Loading cart items...</p>
+                }
               </div>
             } 
           />
