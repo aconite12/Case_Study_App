@@ -4,13 +4,18 @@ import ButtonComponent from './ButtonComponent';
 import { Link } from 'react-router-dom';
 import '../../src/App.css';
 
-const ViewCart = ({ cartItems, handleDelete, handleClearCart }) => {
+const ViewCart = ({ cartItems, handleDelete }) => {
   return (
     <div className='Product'>
       <h1 className="cart-title">My Cart</h1>
       <div className="cart-container">
         {cartItems.length === 0 ? (
-          <p>No items added to the cart</p>
+          <div>
+            <p>No items added to the cart</p>
+
+            <Link to="/ProductPage"><ButtonComponent className='btn btn-primary' buttonName={"Product Page"}></ButtonComponent></Link>
+
+          </div>
         ) : (
           <div>
             <table>
@@ -33,8 +38,8 @@ const ViewCart = ({ cartItems, handleDelete, handleClearCart }) => {
                 ))}
               </tbody>
             </table>
-            <ButtonComponent className='btn btn-primary' buttonName={"Check Out"} onClickFunction={handleClearCart} />
             <Link to="/ProductPage"><ButtonComponent className='btn btn-primary' buttonName={"Product Page"}></ButtonComponent></Link>
+
           </div>
         )}
       </div>

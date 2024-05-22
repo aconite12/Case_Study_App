@@ -11,7 +11,6 @@ class CartController extends Controller{
 
     public function addToCart(Request $request){
         $productCart = new Cart();
-        $productCart->product_id = $request->product_id;
         $productCart->productName = $request->productName;
         $productCart->price = $request->price;
         $productCart->productDescription = $request->productDescription;

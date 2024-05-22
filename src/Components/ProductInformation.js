@@ -1,12 +1,12 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const ProductInformation = ({ name, price, description }) => {
+const ProductInformation = ({productName, price, productDescription }) => {
   
     return <div>
-        <p><b>{name}</b></p>
+        <p><b>{productName}</b></p>
         <p>Price: ₱{price}</p>
-        <p>{description}</p>
+        <p>{productDescription}</p>
     </div>
     
 }

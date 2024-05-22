@@ -18,7 +18,7 @@ function App() {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/products/');
+      const response = await fetch('http://127.0.0.1:8000/api/products');
       const data = await response.json();
       if (data.status === 200) {
         setProducts(data.data);
@@ -76,17 +76,6 @@ function App() {
     }
   };
 
-  const handleClearCart = () => {
-    setCartItems([]);
-    setNumOfItems(0);
-    setSubTotal(0);
-  };
-
-  const handleClearCart = () => {
-    setCartItems([]);
-    setNumOfItems(0);
-    setSubTotal(0);
-  };
 
   return (
     <BrowserRouter>
@@ -123,7 +112,7 @@ function App() {
               <div>
                 <MyCart numOfItems={numOfItems} subTotal={subTotal} />
                 {cartItems ? 
-                  <ViewCart cartItems={cartItems} handleDelete={handleDelete} handleClearCart={handleClearCart} />
+                  <ViewCart cartItems={cartItems} handleDelete={handleDelete} />
                   : 
                   <p>Loading cart items...</p>
                 }

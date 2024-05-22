@@ -15,6 +15,7 @@ const Product = ({ products, onAddToCart }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          // productId: product.id,
           productName: product.productName,
           price: product.price,
           productDescription: product.productDescription
@@ -32,7 +33,7 @@ const Product = ({ products, onAddToCart }) => {
       console.error('Error adding product to cart:', error);
     }
   }; 
-  
+
   return (
     <div className='Product'>
       <div className="grid-container">
@@ -40,7 +41,9 @@ const Product = ({ products, onAddToCart }) => {
           <div key={product.id} className="container">
             <div className="card">
               <div className="card-body">
-                <ProductInformation {...product} />
+
+                <ProductInformation productName={product.productName} price={product.price} productDescription={product.productDescription} />
+
                 <ButtonComponent
                   className='btn btn-primary'
                   buttonName='Add To Cart'
