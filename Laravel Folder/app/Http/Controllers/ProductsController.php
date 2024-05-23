@@ -22,5 +22,34 @@ class productsController extends Controller
         return response()->json(['status' => 201, 'message' => 'Product added successfully']);
     }
 
-   
+    public function adminUpdateItem(Request $request)
+    {
+
+        $product = Products::find($request->input('id'));
+        if ($product) {
+            
+            $product->productName = $request->input('productName');
+            $product->price = $request->input('price');
+            $product->productDescription = $request->input('productDescription');
+            $product->save();
+
+            return response()->json(['status' => 200, 'message' => 'Product updated successfully']);
+        } else {
+            return response()->json(['status' => 404, 'message' => 'Product not found']);
+        }
+    }
+
+    public function adminRemoveItem($productId){
+        
+        $product = Products::find($productId);
+        
+        if (!$product) {
+            return response()->json(['message' => 'Cart item not found'], 404);
+        }
+        
+        $product->delete();
+        
+        return response()->json(['message' => 'Cart item removed']);
+    }
+
 }
