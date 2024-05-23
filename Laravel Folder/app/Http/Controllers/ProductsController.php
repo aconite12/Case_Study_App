@@ -12,4 +12,15 @@ class productsController extends Controller
         $products = $product->all();
         return response()->json(['status' => 200, 'data' => $products]);
     }
+
+    public function addAdminItem(Request $request){
+        $product = new Products();
+        $product->productName = $request->productName;
+        $product->price = $request->price;
+        $product->productDescription = $request->productDescription;
+        $product->save();
+        return response()->json(['status' => 201, 'message' => 'Product added successfully']);
+    }
+
+   
 }
