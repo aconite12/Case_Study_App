@@ -4,7 +4,7 @@ import ButtonComponent from './ButtonComponent';
 import { Link } from 'react-router-dom';
 import '../../src/App.css';
 
-const ViewCart = ({ cartItems, handleDelete }) => {
+const ViewCart = ({ cartItems, handleDelete}) => {
   return (
     <div className='Product'>
       <h1 className="cart-title">My Cart</h1>
