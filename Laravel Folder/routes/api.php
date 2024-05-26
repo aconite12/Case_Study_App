@@ -28,6 +28,6 @@ Route::prefix('products')->group(function () {
 
     Route::post('/adminAddItem', [productsController::class, 'addAdminItem']);
     Route::get('/', [productsController::class, 'productlist']);
-    Route::put('/adminUpdateItem', [productsController::class, 'adminUpdateItem']);
+    Route::put('/adminUpdateItem/{productId}', [productsController::class, 'adminUpdateItem']);
     Route::delete('/{productId}', [productsController::class, 'adminRemoveItem']);
 });

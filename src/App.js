@@ -12,6 +12,7 @@ import ConfirmationPage from './Components/ConfirmationPage';
 import './App.css';
 import LoginPage from './Components/LoginPage';
 import RegisterPage from './Components/RegisterPage';
+import AddProduct from './Components/AddProductPage';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -80,6 +81,28 @@ function App() {
     }
   };
 
+  // const handleAdminUpdate = async () => {
+  //   try {
+      
+  
+  //     const response = await fetch(`http://127.0.0.1:8000/api/products/adminUpdateItem/`, {
+  //       method: 'PUT',
+  //     });
+  
+  
+  //     if (!response.ok) {
+  //       throw new Error('Failed to UPdate item from Products');
+  //     }
+  
+  //     const updatedItems = products.filter(item => item.id !== itemId);
+  //     setProducts(updatedItems);
+  
+  //     fetchProducts();
+  //   } catch (error) {
+  //     console.error('Error deleting item from Product:', error);
+  //   }
+  // };
+
   const handleAdminDelete = async (itemId) => {
     try {
       console.log('Deleting item with ID:', itemId);
@@ -127,7 +150,7 @@ function App() {
             path="/AdminHomePage" 
             element={
               <div>
-                <AdminHomePage products={products} handleAdminDelete={handleAdminDelete}/>
+                <AdminHomePage products={products} handleAdminDelete={handleAdminDelete} />
               </div>
             } 
           />
@@ -157,6 +180,16 @@ function App() {
               </div>
             }
           />
+
+          <Route
+            path="/AddProductPage"
+            element={
+              <div>
+                <AddProduct/>
+              </div>
+            }
+          />
+
           <Route
             path="/ViewCart" 
             element={
