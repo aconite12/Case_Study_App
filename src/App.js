@@ -13,6 +13,7 @@ import './App.css';
 import LoginPage from './Components/LoginPage';
 import RegisterPage from './Components/RegisterPage';
 import AddProduct from './Components/AddProductPage';
+import UpdateProduct from './Components/UpdateProduct';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -81,27 +82,8 @@ function App() {
     }
   };
 
-  // const handleAdminUpdate = async () => {
-  //   try {
-      
-  
-  //     const response = await fetch(`http://127.0.0.1:8000/api/products/adminUpdateItem/`, {
-  //       method: 'PUT',
-  //     });
-  
-  
-  //     if (!response.ok) {
-  //       throw new Error('Failed to UPdate item from Products');
-  //     }
-  
-  //     const updatedItems = products.filter(item => item.id !== itemId);
-  //     setProducts(updatedItems);
-  
-  //     fetchProducts();
-  //   } catch (error) {
-  //     console.error('Error deleting item from Product:', error);
-  //   }
-  // };
+
+
 
   const handleAdminDelete = async (itemId) => {
     try {
@@ -186,6 +168,14 @@ function App() {
             element={
               <div>
                 <AddProduct/>
+              </div>
+            }
+          />
+          <Route
+            path="/UpdateProduct/:productId"
+            element={
+              <div>
+                <UpdateProduct/>
               </div>
             }
           />
