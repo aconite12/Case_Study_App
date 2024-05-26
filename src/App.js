@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import logo from './logo/brand logo/logo.png';
 import HomePage from './Components/HomePage';
+import AdminHomePage from './Components/AdminHomePage';
 import Product from "./Components/ProductPage";
 import MyCart from './Components/MyCart';
 import ViewCart from './Components/ViewCart';
@@ -9,8 +10,11 @@ import ShippingDetails from './Components/ShippingDetails';
 import OrderReview from './Components/OrderReview';
 import ConfirmationPage from './Components/ConfirmationPage';
 import './App.css';
+import LoginPage from './Components/LoginPage';
+import RegisterPage from './Components/RegisterPage';
 
 function App() {
+  const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [numOfItems, setNumOfItems] = useState(0);
@@ -76,7 +80,28 @@ function App() {
     }
   };
 
-
+  const handleAdminDelete = async (itemId) => {
+    try {
+      console.log('Deleting item with ID:', itemId);
+  
+      const response = await fetch(`http://127.0.0.1:8000/api/products/${itemId}`, {
+        method: 'DELETE',
+      });
+  
+      console.log('Delete response:', response);
+  
+      if (!response.ok) {
+        throw new Error('Failed to delete item from Products');
+      }
+  
+      const updatedItems = products.filter(item => item.id !== itemId);
+      setProducts(updatedItems);
+  
+      fetchProducts();
+    } catch (error) {
+      console.error('Error deleting item from Product:', error);
+    }
+  };
   return (
     <BrowserRouter>
       <div className="App">
@@ -91,13 +116,39 @@ function App() {
         </header>
         <Routes>
           <Route 
-            exact path="/" 
+            path="/HomePage" 
             element={
               <div>
                 <HomePage />
               </div>
             } 
           />
+          <Route 
+            path="/AdminHomePage" 
+            element={
+              <div>
+                <AdminHomePage products={products} handleAdminDelete={handleAdminDelete}/>
+              </div>
+            } 
+          />
+           <Route
+           exact
+            path="/"
+            element={
+              <div>
+                <LoginPage/>
+              </div>
+            }
+          />
+           <Route
+            path="/RegisterPage"
+            element={
+              <div>
+                <RegisterPage/>
+              </div>
+            }
+          />
+
           <Route
             path="/ProductPage"
             element={
