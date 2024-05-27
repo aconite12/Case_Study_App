@@ -4,6 +4,7 @@ import ProductInformation from './ProductInformation';
 import ButtonComponent from './ButtonComponent';
 
 const AdminHomePage = ({products, handleAdminDelete}) => {
+
  
   return (
     <div className='Product'>
@@ -15,7 +16,7 @@ const AdminHomePage = ({products, handleAdminDelete}) => {
 
                 <ProductInformation productName={product.productName} price={product.price} productDescription={product.productDescription} />
                 <div>
-                    <ButtonComponent className='btn btn-primary' buttonName={"Edit"} onClickFunction={() => window.location.href = `/UpdateProduct/${product.id}`} />
+                    <ButtonComponent className='btn btn-primary' buttonName={"Edit"} />
                     <ButtonComponent className='btn btn-danger' buttonName={"Delete"} onClickFunction={() => handleAdminDelete(product.id)}/>
 
                 </div>
