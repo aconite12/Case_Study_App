@@ -12,7 +12,11 @@ import ConfirmationPage from './Components/ConfirmationPage';
 import './App.css';
 import LoginPage from './Components/LoginPage';
 import RegisterPage from './Components/RegisterPage';
+<<<<<<< HEAD
 import AddProduct from './Components/AddProductPage';
+import UpdateProduct from './Components/UpdateProduct';
+=======
+>>>>>>> parent of f5fbd69 (Add Product All Done, with front end)
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -81,28 +85,12 @@ function App() {
     }
   };
 
-  // const handleAdminUpdate = async () => {
-  //   try {
-      
-  
-  //     const response = await fetch(`http://127.0.0.1:8000/api/products/adminUpdateItem/`, {
-  //       method: 'PUT',
-  //     });
-  
-  
-  //     if (!response.ok) {
-  //       throw new Error('Failed to UPdate item from Products');
-  //     }
-  
-  //     const updatedItems = products.filter(item => item.id !== itemId);
-  //     setProducts(updatedItems);
-  
-  //     fetchProducts();
-  //   } catch (error) {
-  //     console.error('Error deleting item from Product:', error);
-  //   }
-  // };
+<<<<<<< HEAD
 
+
+
+=======
+>>>>>>> parent of f5fbd69 (Add Product All Done, with front end)
   const handleAdminDelete = async (itemId) => {
     try {
       console.log('Deleting item with ID:', itemId);
@@ -150,7 +138,7 @@ function App() {
             path="/AdminHomePage" 
             element={
               <div>
-                <AdminHomePage products={products} handleAdminDelete={handleAdminDelete} />
+                <AdminHomePage products={products} handleAdminDelete={handleAdminDelete}/>
               </div>
             } 
           />
@@ -180,6 +168,7 @@ function App() {
               </div>
             }
           />
+<<<<<<< HEAD
 
           <Route
             path="/AddProductPage"
@@ -189,7 +178,17 @@ function App() {
               </div>
             }
           />
+          <Route
+            path="/UpdateProduct/:productId"
+            element={
+              <div>
+                <UpdateProduct/>
+              </div>
+            }
+          />
 
+=======
+>>>>>>> parent of f5fbd69 (Add Product All Done, with front end)
           <Route
             path="/ViewCart" 
             element={

@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import ButtonComponent from './ButtonComponent';
+import { useParams } from 'react-router-dom';
 
-const AddProduct = () => {
+const UpdateProduct = () => {
+    const { productId } = useParams();
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState('');
     const [productDescription, setProductDescription] = useState('');
 
-    const handleAddProduct = async () => {
-    
+    const handleUpdateProduct = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/products/adminAddItem', {
-                method: 'POST',
+            const response = await fetch(`http://127.0.0.1:8000/api/products/adminUpdateItem/${productId}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -21,50 +20,45 @@ const AddProduct = () => {
                     productDescription,
                 }),
             });
-    
             if (response.ok) {
                 const data = await response.json();
-                console.log('Product added successfully', data);
-                window.location.href = '/AdminHomePage';
-                // You can redirect the user or show a success message here
+                console.log('Product updated:', data);
             } else {
-                console.error('Failed to add product', response.statusText);
-                // Handle error scenario here
+                throw new Error('Failed to update product');
             }
         } catch (error) {
-            console.error('An error occurred', error);
+            console.error('Error updating product:', error);
         }
     };
+
     return (
         <div>
-            <div>
-                <h2>Add Product</h2>
-            </div>
+            <h2>Update Product</h2>
             <div>
                 <input
                     type="text"
                     placeholder="Product Name"
                     value={productName}
-                    onChange={(e) => setProductName(e.target.value)} 
+                    onChange={(e) => setProductName(e.target.value)}
                 />
                 <input
-                    type="Number"
+                    type="number"
                     placeholder="Price"
                     value={price}
-                    onChange={(e) => setPrice(e.target.value)} 
+                    onChange={(e) => setPrice(e.target.value)}
                 />
                 <input
-                    type="Text"
+                    type="text"
                     placeholder="Description"
                     value={productDescription}
                     onChange={(e) => setProductDescription(e.target.value)}
                 />
             </div>
             <div>
-               <button className='btn btn-success' onClick={handleAddProduct}>Add Product</button>
+                <button className='btn btn-success' onClick={handleUpdateProduct}>Update Product</button>
             </div>
         </div>
     );
 };
 
-export default AddProduct;
+export default UpdateProduct;
