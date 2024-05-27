@@ -14,8 +14,11 @@ import LoginPage from './Components/LoginPage';
 import RegisterPage from './Components/RegisterPage';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import AddProduct from './Components/AddProductPage';
 import UpdateProduct from './Components/UpdateProduct';
+=======
+>>>>>>> parent of f5fbd69 (Add Product All Done, with front end)
 =======
 >>>>>>> parent of f5fbd69 (Add Product All Done, with front end)
 =======
@@ -90,9 +93,12 @@ function App() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> parent of f5fbd69 (Add Product All Done, with front end)
 =======
 >>>>>>> parent of f5fbd69 (Add Product All Done, with front end)
 =======
@@ -176,6 +182,7 @@ function App() {
           />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
           <Route
             path="/AddProductPage"
@@ -194,6 +201,8 @@ function App() {
             }
           />
 
+=======
+>>>>>>> parent of f5fbd69 (Add Product All Done, with front end)
 =======
 >>>>>>> parent of f5fbd69 (Add Product All Done, with front end)
 =======
