@@ -32,9 +32,14 @@ Route::prefix('products')->group(function () {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     Route::get('/', [ProductsController::class, 'productList']);
     Route::get('/{id}', [ProductsController::class, 'getProductDetails']);
     Route::put('/adminUpdateItem/{productId}', [productsController::class, 'adminUpdateItem']);
+=======
+    Route::get('/', [productsController::class, 'productlist']);
+    Route::put('/adminUpdateItem', [productsController::class, 'adminUpdateItem']);
+>>>>>>> parent of f5fbd69 (Add Product All Done, with front end)
 =======
     Route::get('/', [productsController::class, 'productlist']);
     Route::put('/adminUpdateItem', [productsController::class, 'adminUpdateItem']);
